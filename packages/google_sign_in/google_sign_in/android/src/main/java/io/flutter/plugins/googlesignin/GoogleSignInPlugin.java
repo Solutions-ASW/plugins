@@ -339,10 +339,7 @@ public class GoogleSignInPlugin implements MethodCallHandler, FlutterPlugin, Act
         // by the google-services Gradle script.
         // TODO(jackson): Perhaps we should provide a mechanism to override this
         // behavior.
-        int clientIdIdentifier =
-            context
-                .getResources()
-                .getIdentifier("default_web_client_id", "string", context.getPackageName());
+        int clientIdIdentifier = 0;
         if (!Strings.isNullOrEmpty(clientId)) {
           optionsBuilder.requestIdToken(clientId);
           optionsBuilder.requestServerAuthCode(clientId);
