@@ -137,7 +137,8 @@ public class GoogleSignInPlugin implements MethodCallHandler, FlutterPlugin, Act
         List<String> requestedScopes = call.argument("scopes");
         String hostedDomain = call.argument("hostedDomain");
         String clientId = call.argument("clientId");
-        delegate.init(result, signInOption, requestedScopes, hostedDomain, clientId);
+        boolean useGoogleServices = call.argument("useGoogleServices");
+        delegate.init(result, signInOption, requestedScopes, hostedDomain);
         break;
 
       case METHOD_SIGN_IN_SILENTLY:
@@ -193,7 +194,8 @@ public class GoogleSignInPlugin implements MethodCallHandler, FlutterPlugin, Act
         String signInOption,
         List<String> requestedScopes,
         String hostedDomain,
-        String clientId);
+        String clientId,
+        boolean useGoogleServices);
 
     /**
      * Returns the account information for the user who is signed in to this app. If no user is
@@ -318,7 +320,8 @@ public class GoogleSignInPlugin implements MethodCallHandler, FlutterPlugin, Act
         String signInOption,
         List<String> requestedScopes,
         String hostedDomain,
-        String clientId) {
+        String clientId,
+        boolean useGoogleServices) {
       try {
         GoogleSignInOptions.Builder optionsBuilder;
 
@@ -346,7 +349,7 @@ public class GoogleSignInPlugin implements MethodCallHandler, FlutterPlugin, Act
         if (!Strings.isNullOrEmpty(clientId)) {
           optionsBuilder.requestIdToken(clientId);
           optionsBuilder.requestServerAuthCode(clientId);
-        } else if (clientIdIdentifier != 0) {
+        } else if (clientIdIdentifier != 0 && useGoogleServices) {
           optionsBuilder.requestIdToken(context.getString(clientIdIdentifier));
           optionsBuilder.requestServerAuthCode(context.getString(clientIdIdentifier));
         }

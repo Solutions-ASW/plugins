@@ -85,6 +85,7 @@ abstract class GoogleSignInPlatform {
     SignInOption signInOption = SignInOption.standard,
     String? hostedDomain,
     String? clientId,
+    bool? useGoogleServices,
   }) async {
     throw UnimplementedError('init() has not been implemented.');
   }
